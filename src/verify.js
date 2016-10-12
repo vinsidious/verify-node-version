@@ -6,7 +6,7 @@ import { join } from 'path';
 import { path as rootPath } from 'app-root-path';
 
 export default () => {
-  const NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc'));
+  const NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc') || readFile('.node-version'));
   const CLIENT_NODE_VERSION = cleanVersion(process.version);
 
   const NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc'));
