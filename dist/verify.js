@@ -30,7 +30,7 @@ exports.default = function () {
   var NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc') || readFile('.node-version'));
   var CLIENT_NODE_VERSION = cleanVersion(process.version);
 
-  var NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc'));
+  var NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc') || readFile('.npm-version'));
   var CLIENT_NPM_VERSION = (0, _child_process.execSync)('npm -v').stdout;
 
   if (NODE_VERSION_SPEC) {

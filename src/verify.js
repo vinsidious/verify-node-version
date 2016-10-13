@@ -9,7 +9,7 @@ export default () => {
   const NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc') || readFile('.node-version'));
   const CLIENT_NODE_VERSION = cleanVersion(process.version);
 
-  const NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc'));
+  const NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc') || readFile('.npm-version'));
   const CLIENT_NPM_VERSION = execSync(`npm -v`).stdout;
 
   if (NODE_VERSION_SPEC) {

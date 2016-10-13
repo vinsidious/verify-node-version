@@ -1,7 +1,7 @@
 {
   "name": "verify-node-version",
-  "version": "0.0.2",
-  "description": "Checks the user's node and npm versions against those listed in .nvmrc, .npmrc, and (as a fallback) package.json.",
+  "version": "0.0.3",
+  "description": "Checks the user's node and npm versions against those listed in .nvmrc/.node-version and .npmrc/.npm-version",
   "main": "index.js",
   "author": "Vince Coppola",
   "license": "MIT",
