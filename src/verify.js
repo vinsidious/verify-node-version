@@ -6,11 +6,11 @@ import { join } from 'path';
 import { path as rootPath } from 'app-root-path';
 
 export default () => {
-  const NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc')) || cleanVersion(readFile('.node-version'));
+  const NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc') || readFile('.node-version'));
   const CLIENT_NODE_VERSION = cleanVersion(process.version);
 
-  const NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc')) || cleanVersion(readFile('.npm-version'));
-  const CLIENT_NPM_VERSION = execSync(`npm -v`).toString();
+  const NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc') || readFile('.npm-version'));
+  const CLIENT_NPM_VERSION = cleanVersion(execSync(`npm -v`).toString());
 
   if (NODE_VERSION_SPEC) {
     const equalVersions = compareVersions(NODE_VERSION_SPEC, CLIENT_NODE_VERSION);
@@ -48,7 +48,7 @@ function readFile(path) {
 function cleanVersion(rawVer) {
   const parsedVersion = semver().exec(rawVer);
   if (!parsedVersion) return false;
-  return parsedVersion[0].replace(/[a-zA-Z]/ig, '');
+  return parsedVersion[0].replace(/[a-zA-Z]/ig, '').trim();
 }
 
 function compareVersions(a, b) {

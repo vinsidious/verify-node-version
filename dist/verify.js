@@ -27,11 +27,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = function () {
-  var NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc')) || cleanVersion(readFile('.node-version'));
+  var NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc') || readFile('.node-version'));
   var CLIENT_NODE_VERSION = cleanVersion(process.version);
 
-  var NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc')) || cleanVersion(readFile('.npm-version'));
-  var CLIENT_NPM_VERSION = (0, _child_process.execSync)('npm -v').toString();
+  var NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc') || readFile('.npm-version'));
+  var CLIENT_NPM_VERSION = cleanVersion((0, _child_process.execSync)('npm -v').toString());
 
   if (NODE_VERSION_SPEC) {
     var equalVersions = compareVersions(NODE_VERSION_SPEC, CLIENT_NODE_VERSION);
@@ -69,7 +69,7 @@ function readFile(path) {
 function cleanVersion(rawVer) {
   var parsedVersion = (0, _semverRegex2.default)().exec(rawVer);
   if (!parsedVersion) return false;
-  return parsedVersion[0].replace(/[a-zA-Z]/ig, '');
+  return parsedVersion[0].replace(/[a-zA-Z]/ig, '').trim();
 }
 
 function compareVersions(a, b) {
