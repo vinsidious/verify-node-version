@@ -6,16 +6,16 @@ import { join } from 'path';
 import { path as rootPath } from 'app-root-path';
 
 export default () => {
-  const NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc') || readFile('.node-version'));
+  const NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc')) || cleanVersion(readFile('.node-version'));
   const CLIENT_NODE_VERSION = cleanVersion(process.version);
 
-  const NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc') || readFile('.npm-version'));
-  const CLIENT_NPM_VERSION = execSync(`npm -v`).stdout;
+  const NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc')) || cleanVersion(readFile('.npm-version'));
+  const CLIENT_NPM_VERSION = execSync(`npm -v`).toString();
 
   if (NODE_VERSION_SPEC) {
     const equalVersions = compareVersions(NODE_VERSION_SPEC, CLIENT_NODE_VERSION);
     if (!equalVersions) {
-      console.log(chalk.red(`The required node version is ${NODE_VERSION_SPEC} ` +
+      console.error(chalk.red(`The required node version is ${NODE_VERSION_SPEC} ` +
                       `and you're currently running ${CLIENT_NODE_VERSION}`));
       process.exit(1);
     }
@@ -23,7 +23,7 @@ export default () => {
   if (NPM_VERSION_SPEC) {
     const equalVersions = compareVersions(NPM_VERSION_SPEC, CLIENT_NPM_VERSION);
     if (!equalVersions) {
-      console.log(chalk.red(`The required npm version is ${NPM_VERSION_SPEC} ` +
+      console.error(chalk.red(`The required npm version is ${NPM_VERSION_SPEC} ` +
                       `and you're currently running ${CLIENT_NPM_VERSION}`));
       process.exit(1);
     }

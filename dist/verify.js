@@ -27,23 +27,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = function () {
-  var NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc') || readFile('.node-version'));
+  var NODE_VERSION_SPEC = cleanVersion(readFile('.nvmrc')) || cleanVersion(readFile('.node-version'));
   var CLIENT_NODE_VERSION = cleanVersion(process.version);
 
-  var NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc') || readFile('.npm-version'));
-  var CLIENT_NPM_VERSION = (0, _child_process.execSync)('npm -v').stdout;
+  var NPM_VERSION_SPEC = cleanVersion(readFile('.npmrc')) || cleanVersion(readFile('.npm-version'));
+  var CLIENT_NPM_VERSION = (0, _child_process.execSync)('npm -v').toString();
 
   if (NODE_VERSION_SPEC) {
     var equalVersions = compareVersions(NODE_VERSION_SPEC, CLIENT_NODE_VERSION);
     if (!equalVersions) {
-      console.log(_chalk2.default.red('The required node version is ' + NODE_VERSION_SPEC + ' ' + ('and you\'re currently running ' + CLIENT_NODE_VERSION)));
+      console.error(_chalk2.default.red('The required node version is ' + NODE_VERSION_SPEC + ' ' + ('and you\'re currently running ' + CLIENT_NODE_VERSION)));
       process.exit(1);
     }
   }
   if (NPM_VERSION_SPEC) {
     var _equalVersions = compareVersions(NPM_VERSION_SPEC, CLIENT_NPM_VERSION);
     if (!_equalVersions) {
-      console.log(_chalk2.default.red('The required npm version is ' + NPM_VERSION_SPEC + ' ' + ('and you\'re currently running ' + CLIENT_NPM_VERSION)));
+      console.error(_chalk2.default.red('The required npm version is ' + NPM_VERSION_SPEC + ' ' + ('and you\'re currently running ' + CLIENT_NPM_VERSION)));
       process.exit(1);
     }
   }

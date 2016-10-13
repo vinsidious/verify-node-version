@@ -1,6 +1,6 @@
 {
   "name": "verify-node-version",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "Checks the user's node and npm versions against those listed in .nvmrc/.node-version and .npmrc/.npm-version",
   "main": "index.js",
   "author": "Vince Coppola",
